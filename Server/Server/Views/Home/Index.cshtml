@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Server.Models.Device>
+@{
+    ViewBag.Title = "Index";
+}
+@section sTylesInHead
+{
+    @Scripts.Render("http://code.jquery.com/jquery-1.9.1.js", "http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+    @Styles.Render("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+}
+<h2>Your Devices</h2>
+@ViewBag.state
+@ViewBag.dev
+@ViewBag.temperature
+@ViewBag.type
+
+<script>
+    $(document).ready(function () {
+        setInterval(ajaxState, 3000);
+        setInterval(ajaxDevice, 3000);
+       
+    });
+
+
+    function ajaxState() {
+        var httpRequest;
+        
+        if (window.XMLHttpRequest) {
+            httpRequest = new XMLHttpRequest();
+        }
+        else {
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var res = document.getElementById("res");
+        // httpRequest.open("GET", "@Request.Url.AbsoluteUri" + "/Home/GetState");
+        httpRequest.open("GET", "http://localhost:81/Server/Home/GetState");
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                res.value = httpRequest.responseText;
+            }
+        }
+        httpRequest.send();
+    }
+    function ajaxDevice() {
+        var httpRequest;
+       
+        if (window.XMLHttpRequest) {
+            httpRequest = new XMLHttpRequest();
+        }
+        else {
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        var res = document.getElementById("MainTable");
+        // res.value = a;GetState
+        // httpRequest.open("GET", "@Request.Url.AbsoluteUri" + "/Home/GetState");
+        httpRequest.open("GET", "http://localhost:81/Server/Home/OnDeviceLoad");
+            httpRequest.onreadystatechange = function () {
+                if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                    
+                    $("#MainTable").append(httpRequest.responseText);
+                }
+            }
+            httpRequest.send();
+        }
+</script>
+
+<input type="text" id="res" />
+<table id="MainTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceSerial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.DeviceSerial)
+            </td>
+            <td>
+                @((Server.Controllers.DeviceType)item.Type)
+
+            </td>
+            <td>
+                @if (item.State == 0)
+                {
+                    @Html.Label("Off")
+                }
+                else
+                {
+                    @Html.Label("On")
+                }
+
+            </td>
+            <td>
+                @Html.ActionLink("Turn On/Off", "TurnOnOff", new { DeviceSerial = item.DeviceSerial })<br />
+
+                @Html.ActionLink("Set up Schedule", "Schedule", new { DeviceSerial = item.DeviceSerial })
+            </td>
+        </tr>
+    }
+
+</table>
+

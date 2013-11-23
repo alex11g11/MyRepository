@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DevicesModel" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Хранилище DevicesModelContainer">
+          <EntitySet Name="Device" EntityType="Хранилище DevicesModel.Device" store:Type="Tables" />
+          <EntitySet Name="Sensor" EntityType="Хранилище DevicesModel.Sensor" store:Type="Tables" />
+          <EntitySet Name="Time" EntityType="Хранилище DevicesModel.Time" store:Type="Tables" />
+        </EntityContainer>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceSerial" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceSerial" Type="int" />
+          <Property Name="temperature" Type="int" />
+          <Property Name="tconst" Type="int" />
+        </EntityType>
+        <EntityType Name="Time">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="From" Type="datetime" />
+          <Property Name="To" Type="datetime" />
+          <Property Name="DeviceSerial" Type="int" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DevicesModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DevicesEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Device" EntityType="DevicesModel.Device" />
+          <EntitySet Name="Sensor" EntityType="DevicesModel.Sensor" />
+          <EntitySet Name="Time" EntityType="DevicesModel.Time" />
+        </EntityContainer>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceSerial" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceSerial" Type="Int32" />
+          <Property Name="temperature" Type="Int32" />
+          <Property Name="tconst" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Time">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="From" Type="DateTime" Precision="3" />
+          <Property Name="To" Type="DateTime" Precision="3" />
+          <Property Name="DeviceSerial" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DevicesModelContainer" CdmEntityContainer="DevicesEntities">
+          <EntitySetMapping Name="Device">
+            <EntityTypeMapping TypeName="DevicesModel.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sensor">
+            <EntityTypeMapping TypeName="DevicesModel.Sensor">
+              <MappingFragment StoreEntitySet="Sensor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+                <ScalarProperty Name="temperature" ColumnName="temperature" />
+                <ScalarProperty Name="tconst" ColumnName="tconst" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Time">
+            <EntityTypeMapping TypeName="DevicesModel.Time">
+              <MappingFragment StoreEntitySet="Time">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

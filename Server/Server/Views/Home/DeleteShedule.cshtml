@@ -1,0 +1,39 @@
+﻿@model Server.Models.Time
+
+@{
+    ViewBag.Title = "DeleteShedule";
+}
+
+<h2>DeleteShedule</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Time</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.From)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.From)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.To)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.To)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeviceSerial)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeviceSerial)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back", "Schedule")
+    </p>
+}
